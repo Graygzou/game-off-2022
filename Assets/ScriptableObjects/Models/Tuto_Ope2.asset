@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f905c7e2103a0458628b2bba367bc9, type: 3}
+  m_Name: Tuto_Ope2
+  m_EditorClassIdentifier: 
+  levelIndex: 0
+  simplificationUsed: 0.1
+  maxScoreTolerance: 100
+  meshModel: {fileID: 4300000, guid: 0aa61c2328862e84aa12391423a5019b, type: 2}
+  lifeReducingSpeed: 0.01
+  mistakeDamage: 1.5
+  causeOfInjury: 
+  nameOfTheCat: 
+  ageOfTheCat: 1
