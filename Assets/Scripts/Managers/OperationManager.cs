@@ -63,6 +63,7 @@ public class OperationManager : MonoBehaviour
 
     void Start()
     {
+        _finished = false;
         Vector2 cursorOffset = new Vector2(_needleCrosshair.width / 2, _needleCrosshair.height / 2);
         Cursor.SetCursor(_needleCrosshair, cursorOffset, CursorMode.Auto);
 

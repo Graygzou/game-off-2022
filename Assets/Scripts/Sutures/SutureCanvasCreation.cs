@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class SutureCanvasCreation : MonoBehaviour
 {
     [SerializeField] private Camera _operationCamera = null;
@@ -94,3 +95,4 @@ public class SutureCanvasCreation : MonoBehaviour
         AssetDatabase.SaveAssets();
     }
 }
+#endif // UNITY_EDITOR

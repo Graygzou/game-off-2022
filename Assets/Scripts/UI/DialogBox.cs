@@ -34,6 +34,9 @@ public class DialogBox : MonoBehaviour
 
     public void SetPreview(Sprite sprite)
     {
-        _characterPreview.sprite = sprite;
+        if (sprite != null)
+        {
+            _characterPreview.sprite = sprite;
+        }
     }
 }

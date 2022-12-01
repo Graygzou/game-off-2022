@@ -6391,6 +6391,14 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 365166549901802546, guid: 1ee98b91ffd006d49b27f0d84051e434, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -158
+      objectReference: {fileID: 0}
+    - target: {fileID: 365166549901802547, guid: 1ee98b91ffd006d49b27f0d84051e434, type: 3}
+      propertyPath: m_text
+      value: One stitch at the time
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ee98b91ffd006d49b27f0d84051e434, type: 3}
 --- !u!1001 &1273608857110129577

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4dda2e48ab45c541bca07d12a4e5174, type: 3}
-  m_Name: TutoComplexOperation
+  m_Name: Level1Complex
   m_EditorClassIdentifier: 
   allModels:
-  - {fileID: 11400000, guid: 3595f5d802d1fed4aaccf5cb00518859, type: 2}
-  - {fileID: 11400000, guid: 0756fb89c51935a409f5b02b2b3a2afd, type: 2}
   - {fileID: 11400000, guid: e9d5ee4815fd91543958995ffda6dcd9, type: 2}
+  - {fileID: 11400000, guid: e9d5ee4815fd91543958995ffda6dcd9, type: 2}
+  - {fileID: 11400000, guid: e9d5ee4815fd91543958995ffda6dcd9, type: 2}
+  zone: 0
   mistakeDamage: 0.06
   lifeReducingSpeed: 0.02
-  causeOfInjury: Eat too much fish
-  nameOfTheCat: Croquette
-  ageOfTheCat: 12
+  causeOfInjury: 
+  nameOfTheCat: 
+  ageOfTheCat: 1

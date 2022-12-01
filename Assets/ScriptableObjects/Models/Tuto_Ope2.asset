@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90f905c7e2103a0458628b2bba367bc9, type: 3}
   m_Name: Tuto_Ope2
   m_EditorClassIdentifier: 
-  levelIndex: 0
-  simplificationUsed: 0.1
-  maxScoreTolerance: 100
-  meshModel: {fileID: 4300000, guid: 0aa61c2328862e84aa12391423a5019b, type: 2}
-  lifeReducingSpeed: 0.01
-  mistakeDamage: 1.5
-  causeOfInjury: 
-  nameOfTheCat: 
-  ageOfTheCat: 1
+  operationIndex: 0
+  simplificationUsed: 1
+  maxScoreTolerance: 10
+  meshModel: {fileID: 4300000, guid: 7bb0a26b2d9e8f94995321b425f74b06, type: 2}

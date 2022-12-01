@@ -112,6 +112,13 @@ public class ScoreValidator
         currentSuture.BakeMesh(m);
         Debug.Log("Generated Mesh vertices count is =  " + m.vertices.Length);
 
+        if (mesh.vertices.Length != m.vertices.Length)
+        {
+            Debug.Log("Rejected since not same number of vertices.");
+            _onModelRejected?.Invoke();
+            return;
+        }
+
         int minBound = Mathf.Min(mesh.vertices.Length, m.vertices.Length);
 
         Vector3 firstMeshPoint = mesh.vertices[0];

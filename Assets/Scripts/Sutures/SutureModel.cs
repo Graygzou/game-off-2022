@@ -48,6 +48,15 @@ public class SutureModel : MonoBehaviour
             {
                 filter.mesh = model.meshModel;
                 _wounds[count].SetActive(true);
+
+                // Set back the alpha to one
+                SpriteRenderer r = _wounds[count].GetComponent<SpriteRenderer>();
+                r.color = new Color(255, 255, 255, 255);
+
+                // Start particules systemes
+                ParticleSystem particules = _wounds[_lastActiveChild].GetComponentInChildren<ParticleSystem>();
+                particules?.Play();
+
                 count++;
             }
         }
@@ -85,6 +94,11 @@ public class SutureModel : MonoBehaviour
         // Always the first one
         GameObject go = _children[_lastActiveChild];
         SpriteRenderer r = _wounds[_lastActiveChild].GetComponent<SpriteRenderer>();
+
+        // Stop particules systemes
+        ParticleSystem particules = _wounds[_lastActiveChild].GetComponentInChildren<ParticleSystem>();
+        particules?.Stop();
+
         _lastActiveChild++;
         
         Vector3 destination = new Vector3(-400, go.transform.localPosition.y, go.transform.localPosition.z);
@@ -92,12 +106,14 @@ public class SutureModel : MonoBehaviour
         Color finalColor = new Color(255, 255, 255, 0);
         while (go.transform.localPosition.x > -300)
         {
-            r.color = Color.LerpUnclamped(r.color, finalColor, _moveOutSpeed * 4 * Time.deltaTime);
+            r.color = Color.LerpUnclamped(r.color, finalColor, _moveOutSpeed * 6 * Time.deltaTime);
             go.transform.localPosition = Vector3.LerpUnclamped(go.transform.localPosition, destination, _moveOutSpeed * Time.deltaTime);
             yield return null;
         }
 
         Destroy(go);
+
+        
         //_layout.enabled = true;
         //yield return null;
         //_layout.enabled = false;
