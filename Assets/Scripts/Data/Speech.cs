@@ -7,7 +7,8 @@ using UnityEngine;
 public struct Speech
 {
     [Header("UI stuff")]
-    [SerializeField] public Sprite characterSprite;
+    [SerializeField] public Sprite mouthSprite;
+    [SerializeField] public Sprite eyesSprite;
     [SerializeField] public string characterName;
 
     [Header("Gameplay stuff")]

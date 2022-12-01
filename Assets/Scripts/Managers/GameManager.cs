@@ -24,6 +24,11 @@ public class GameManager : Singleton<GameManager>
         return _currentLevel;
     }
 
+    public void AddSound(AudioClip c)
+    {
+        _soundManager.AddSound(c);
+    }
+
     public override void Awake()
     {
         base.Awake();

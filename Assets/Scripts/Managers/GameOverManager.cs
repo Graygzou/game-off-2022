@@ -7,6 +7,7 @@ public class GameOverManager : MonoBehaviour
 {
     [SerializeField] private Button _retryButton = null;
     [SerializeField] private Button _mainMenuButton = null;
+    [SerializeField] private AudioClip _audioClip = null;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,11 +22,13 @@ public class GameOverManager : MonoBehaviour
     public void OnRetryClicked()
     {
         // Just retry the current level without going through the whole story
+        GameManager.Instance.AddSound(_audioClip);
         GameManager.Instance.SwitchToContext(GameContext.Operation);
     }
 
     public void OnReturnMainMenuClicked()
     {
+        GameManager.Instance.AddSound(_audioClip);
         GameManager.Instance.SwitchToContext(GameContext.MainMenu);
     }
 }

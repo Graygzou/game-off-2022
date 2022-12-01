@@ -6330,6 +6330,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 890851044}
     - target: {fileID: 1273608857110129579, guid: c9b749cb4e2741748bdba2838fb93704, type: 3}
+      propertyPath: _selectionCip
+      value: 
+      objectReference: {fileID: 8300000, guid: da3848176e657f945834b42f31b87365, type: 3}
+    - target: {fileID: 1273608857110129579, guid: c9b749cb4e2741748bdba2838fb93704, type: 3}
       propertyPath: _creditsButton
       value: 
       objectReference: {fileID: 264379892}

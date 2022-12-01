@@ -14,9 +14,20 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip[] _roundsMusic = null;
     [SerializeField] private AudioClip _deathMusic = null;
 
+    private List<GameObject> gos = null;
+
     public void Awake()
     {
+        gos = new List<GameObject>();
         _musicSource.playOnAwake = false;
+    }
+
+    public void OnDestroy()
+    {
+        foreach (var item in gos)
+        {
+            Destroy(item);
+        }
     }
 
     public void StartBackgroundMusic(GameContext context)
@@ -45,6 +56,11 @@ public class SoundManager : MonoBehaviour
     public void AddSound(AudioClip audioClip)
     {
         // Play the audioClip oneshot
+        GameObject go = GameObject.Instantiate(_sfxPrefab, transform);
+        gos.Add(go);
+        AudioSource audio = go.GetComponent<AudioSource>();
+        audio.clip = audioClip;
+        audio.Play();
     }
 
     public void UpdateMusicPitch(float pitch)

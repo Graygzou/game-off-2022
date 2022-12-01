@@ -12,6 +12,7 @@ public class OperationManager : MonoBehaviour
     [SerializeField] private ZoomToWound _zoomManager = null;
     [SerializeField] private Slider _time = null;
     [SerializeField] private GameObject _newOperationText = null;
+    [SerializeField] private TipsManager _tipsManager = null;
     
 
     [SerializeField] private LevelData _currentLevel = null;
@@ -68,7 +69,10 @@ public class OperationManager : MonoBehaviour
         {
             _currentLevel = GameManager.Instance.GetCurrentLevel();
         }
-        
+
+        // We're on the onboarding. So trigger it
+        _tipsManager.DisplayNextTips();
+
         MoveToNextOperation();
     }
 

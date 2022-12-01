@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private Button _startButton = null;
     [SerializeField] private Button _creditsButton = null;
+    [SerializeField] private AudioClip _selectionCip = null;
 
     void Start()
     {
@@ -19,11 +20,13 @@ public class MainMenuManager : MonoBehaviour
 
     private void OnStartClicked()
     {
+        GameManager.Instance.AddSound(_selectionCip);
         GameManager.Instance.StartGame();
     }
 
     private void OnCreditClicked()
     {
+        GameManager.Instance.AddSound(_selectionCip);
         GameManager.Instance.SwitchToContext(GameContext.Credits);
     }
 }

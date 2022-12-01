@@ -5,14 +5,16 @@ using UnityEngine.UI;
 public class DialogBox : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _canvasGroup = null;
-    [SerializeField] private Image _characterPreview = null;
+    [SerializeField] private Image _characterEyes = null;
+    [SerializeField] private Image _characterMouth = null;
     [SerializeField] private TextMeshProUGUI _characterSpeech = null;
 
     public void Awake()
     {
         _canvasGroup.alpha = 0;
         _characterSpeech.text = string.Empty;
-        _characterPreview.sprite = null;
+        _characterEyes.sprite = null;
+        _characterMouth.sprite = null;
     }
 
     public void EnableBox(bool toggle, Speech nextSpeech)
@@ -22,7 +24,7 @@ public class DialogBox : MonoBehaviour
         _canvasGroup.blocksRaycasts = toggle;
         if (toggle)
         {
-            SetPreview(nextSpeech.characterSprite);
+            SetPreview(nextSpeech.mouthSprite, nextSpeech.eyesSprite);
             SetText(nextSpeech.characterText);
         }
     }
@@ -32,11 +34,16 @@ public class DialogBox : MonoBehaviour
         _characterSpeech.text = text;
     }
 
-    public void SetPreview(Sprite sprite)
+    public void SetPreview(Sprite mouth, Sprite eyes)
     {
-        if (sprite != null)
+        if (mouth != null)
         {
-            _characterPreview.sprite = sprite;
+            _characterMouth.sprite = mouth;
+        }
+
+        if (eyes != null)
+        {
+            _characterEyes.sprite = eyes;
         }
     }
 }
