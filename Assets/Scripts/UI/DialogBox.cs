@@ -13,8 +13,6 @@ public class DialogBox : MonoBehaviour
     {
         _canvasGroup.alpha = 0;
         _characterSpeech.text = string.Empty;
-        _characterEyes.sprite = null;
-        _characterMouth.sprite = null;
     }
 
     public void EnableBox(bool toggle, Speech nextSpeech)

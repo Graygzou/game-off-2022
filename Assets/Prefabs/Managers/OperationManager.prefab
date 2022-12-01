@@ -46,12 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41633d7737285004496df1384ca6e541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needleCrosshair: {fileID: 2800000, guid: 0ba2e80f4b766304a8f750f40c0d34eb, type: 3}
   _sutureModel: {fileID: 0}
   _operationCanvas: {fileID: 579620478}
   _zoomManager: {fileID: 4492655425298366623}
   _time: {fileID: 0}
   _newOperationText: {fileID: 0}
+  _tipsManager: {fileID: 0}
+  _hurtSFX: {fileID: 8300000, guid: d1508d6f993040a41946259666f61806, type: 3}
   _currentLevel: {fileID: 11400000, guid: dc69e2942f2249a469fd6943951bee8d, type: 2}
 --- !u!114 &579620478
 MonoBehaviour:

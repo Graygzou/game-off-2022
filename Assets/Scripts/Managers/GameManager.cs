@@ -12,12 +12,15 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private LevelData[] _levels = null;
 
+    private bool _isOnBoardingOn = false;
     private GameContext _currentContext = GameContext.MainMenu;
     private int _currentLevelIndex = 0;
     private int _currentStoryIndex = 0;
     private LevelData _currentLevel = null;
     private DialogueManager _dialogManagerFound = null;
     private OperationManager _operationManagerFound = null;
+
+    public bool IsOnBoarding { get => _isOnBoardingOn; }
 
     public LevelData GetCurrentLevel()
     {
@@ -87,6 +90,11 @@ public class GameManager : Singleton<GameManager>
         _soundManager.StartBackgroundMusic(_currentContext);
     }
 
+    internal void SetOnBoarding(bool v)
+    {
+        _isOnBoardingOn = v;
+    }
+
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameContext context = (GameContext)scene.buildIndex;
@@ -128,11 +136,11 @@ public class GameManager : Singleton<GameManager>
         }
         else if (context == GameContext.Story)
         {
-            
+
         }
         else if (context == GameContext.Operation)
         {
-            
+
         }
     }
 
@@ -145,7 +153,7 @@ public class GameManager : Singleton<GameManager>
     {
         _dialogManagerFound.OnStoryEnded -= OnDialogEnded;
         _currentStoryIndex++;
-        
+
         if (_currentLevelIndex < _levels.Length)
         {
             // Jump to the next level

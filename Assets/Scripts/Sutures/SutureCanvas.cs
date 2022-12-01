@@ -30,7 +30,7 @@ public class SutureCanvas : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (!_isInitialized)
+        if (!_isInitialized || GameManager.Instance.IsOnBoarding)
         {
             return;
         }

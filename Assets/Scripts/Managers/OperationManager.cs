@@ -13,7 +13,10 @@ public class OperationManager : MonoBehaviour
     [SerializeField] private Slider _time = null;
     [SerializeField] private GameObject _newOperationText = null;
     [SerializeField] private TipsManager _tipsManager = null;
-    
+
+    [Header("Others")]
+    [SerializeField] private AudioClip _hurtSFX = null;
+
 
     [SerializeField] private LevelData _currentLevel = null;
     private int _currentOperationIndex = -1;
@@ -72,6 +75,8 @@ public class OperationManager : MonoBehaviour
 
         // We're on the onboarding. So trigger it
         _tipsManager.DisplayNextTips();
+        _tipsManager.OnOnboardingDone += () => GameManager.Instance.SetOnBoarding(false);
+        GameManager.Instance.SetOnBoarding(true);
 
         MoveToNextOperation();
     }
@@ -124,6 +129,11 @@ public class OperationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.IsOnBoarding)
+        {
+            return;
+        }
+
         if (!_finished && _time.value <= 0)
         {
             _started = false;
@@ -141,6 +151,10 @@ public class OperationManager : MonoBehaviour
     public void OnModelValidated()
     {
         Debug.Log("Model validated !");
+        if (GameManager.Instance.IsOnBoarding)
+        {
+            _tipsManager.DisplaySpecificTips(2);
+        }
 
         int totalModelCount = _currentLevel.operationSequences[_currentOperationIndex].allModels.Count;
         if (_currentModelIndex < totalModelCount)
@@ -215,7 +229,14 @@ public class OperationManager : MonoBehaviour
 
     public void OnModelRejected()
     {
+        if (GameManager.Instance.IsOnBoarding)
+        {
+            _tipsManager.DisplayNextTips();
+            return;
+        }
+
         Debug.Log("Wrong!");
+        GameManager.Instance.AddSound(_hurtSFX);
         // TODO: Screen shake Screen
         _time.value -= _mistakeDamage;
     }

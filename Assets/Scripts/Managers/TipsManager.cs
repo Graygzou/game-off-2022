@@ -15,22 +15,23 @@ public class TipsManager : MonoBehaviour
     [Header("Data")]
     [SerializeField] private DialogueData[] _tips = null;
 
-    private int _currentActiveStoryIndex = 0;
     private int _currentActiveTips = 0;
     private DialogueData _currentData = null;
-    private List<Speech> _remainingSpeech = null;
+    private List<Speech> _remainingSpeech = new List<Speech>();
 
-    private Action _onNoStoriesLeft = null;
-    public event Action OnNoStoriesLeft
+    public static bool IsTipsActive = false;
+
+    private Action _onOnboardingDone = null;
+    public event Action OnOnboardingDone
     {
         add
         {
-            _onNoStoriesLeft -= value;
-            _onNoStoriesLeft += value;
+            _onOnboardingDone -= value;
+            _onOnboardingDone += value;
         }
         remove
         {
-            _onNoStoriesLeft -= value;
+            _onOnboardingDone -= value;
         }
     }
 
@@ -59,7 +60,6 @@ public class TipsManager : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-        _currentActiveStoryIndex += _currentData.IsStory ? 1 : 0;
         _currentActiveTips += _currentData.IsStory ? 0 : 1;
     }
 
@@ -72,27 +72,44 @@ public class TipsManager : MonoBehaviour
         // TODO ?
     }
 
+    public void DisplaySpecificTips(int index)
+    {
+        _currentActiveTips = index;
+        _currentData = _tips[_currentActiveTips];
+        OpenTipsBox();
+        _currentActiveTips++;
+    }
+
     public void DisplayNextTips()
     {
         if (_currentActiveTips >= _tips.Length)
         {
             Debug.Log("No more Tips to show !");
-            _onNoStoriesLeft?.Invoke();
+            _onOnboardingDone?.Invoke();
             return;
         }
 
+        _currentData = _tips[_currentActiveTips];
         OpenTipsBox();
         _currentActiveTips++;
     }
 
     private void OpenTipsBox()
     {
+        IsTipsActive = true;
         _remainingSpeech.AddRange(_currentData.Speeches);
         DisplayNextSpeech();
     }
 
     private void DisplayNextSpeech()
     {
+        if (_remainingSpeech.Count <= 0)
+        {
+            IsTipsActive = false;
+            // Should display them after
+            return;
+        }
+
         Speech nextSpeech = _remainingSpeech[0];
         _remainingSpeech.RemoveAt(0);
 
