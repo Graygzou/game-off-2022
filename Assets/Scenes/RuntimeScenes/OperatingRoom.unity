@@ -1317,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8569452085672931764, guid: 66d0e16238234b44c99882ce5d45143b, type: 3}
       propertyPath: m_Name
-      value: PatientLeft
+      value: Patient
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66d0e16238234b44c99882ce5d45143b, type: 3}
