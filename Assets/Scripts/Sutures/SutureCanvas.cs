@@ -49,7 +49,7 @@ public class SutureCanvas : MonoBehaviour
         {
             if (_currentSuture != null)
             {
-                _scoreValidator.ComputeScore(_currentSuture);
+                //_scoreValidator.ComputeScore(_currentSuture);
             }
         }
     }

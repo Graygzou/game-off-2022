@@ -94,6 +94,7 @@ public class GameManager : Singleton<GameManager>
             case GameContext.Operation:
                 GameObject operationManager = GameObject.FindGameObjectWithTag("OperationManager");
                 _operationManagerFound = operationManager.GetComponent<OperationManager>();
+                _operationManagerFound.OnLevelFailed += GameOver;
                 _operationManagerFound.OnLevelFinished += OnLevelFinished;
                 break;
 

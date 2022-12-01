@@ -11,7 +11,7 @@ public class OperationManager : MonoBehaviour
     [SerializeField] private SutureCanvas _operationCanvas = null;
     [SerializeField] private Slider _time = null;
 
-    private LevelData _currentLevel = null;
+    [SerializeField] private LevelData _currentLevel = null;
     private int _currentOperationIndex = 0;
 
     private ScoreValidator _scoreValidator;
@@ -19,6 +19,20 @@ public class OperationManager : MonoBehaviour
     private bool _finished = false;
     private float _levelSpeed = 1.0f;
     private float _mistakeDamage = 1.0f;
+
+    private Action _onLevelFailed = null;
+    public event Action OnLevelFailed
+    {
+        add
+        {
+            _onLevelFailed -= value;
+            _onLevelFailed += value;
+        }
+        remove
+        {
+            _onLevelFailed -= value;
+        }
+    }
 
     private Action<int> _onLevelFinished = null;
     public event Action<int> OnLevelFinished
@@ -38,7 +52,7 @@ public class OperationManager : MonoBehaviour
     {
         _started = false;
         _finished = true;
-        _currentLevel = null;
+        //_currentLevel = null;
         _currentOperationIndex = 0;
     }
 
@@ -47,7 +61,11 @@ public class OperationManager : MonoBehaviour
         Vector2 cursorOffset = new Vector2(_needleCrosshair.width / 2, _needleCrosshair.height / 2);
         Cursor.SetCursor(_needleCrosshair, cursorOffset, CursorMode.Auto);
 
-        _currentLevel = GameManager.Instance.GetCurrentLevel();
+        if (_currentLevel == null)
+        {
+            _currentLevel = GameManager.Instance.GetCurrentLevel();
+        }
+        
         _currentOperationIndex = 0;
         StartOperation(_currentLevel.operationSequences[_currentOperationIndex]);
 
@@ -78,11 +96,11 @@ public class OperationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_time.value <= 0)
+        if (!_finished && _time.value <= 0)
         {
             _started = false;
             _finished = true;
-            GameManager.Instance.GameOver();
+            _onLevelFailed?.Invoke();
         }
 
         // Make the timer gradually reduce

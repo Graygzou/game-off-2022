@@ -14,4 +14,9 @@ public class SutureModel : MonoBehaviour
         _displaySpot.mesh = m;
     }
 
+
+    public void FadeInModel()
+    {
+
+    }
 }

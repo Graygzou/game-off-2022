@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5487784038178540426}
   - component: {fileID: 579620476}
   - component: {fileID: 579620478}
+  - component: {fileID: 4492655425298366623}
   m_Layer: 0
   m_Name: OperationManager
-  m_TagString: Untagged
+  m_TagString: OperationManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +50,7 @@ MonoBehaviour:
   _sutureModel: {fileID: 0}
   _operationCanvas: {fileID: 579620478}
   _time: {fileID: 0}
+  _currentLevel: {fileID: 11400000, guid: dc69e2942f2249a469fd6943951bee8d, type: 2}
 --- !u!114 &579620478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,3 +65,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _operationCamera: {fileID: 0}
   _sutureNeedleRenderer: {fileID: 5795074643685731159, guid: a4cbf8d0f326af24d90ccc10acef1720, type: 3}
+--- !u!114 &4492655425298366623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6185296538426844173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d13ac4609742943a6ca4d12429912a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _patientTransform: {fileID: 0}
+  _patientModelTransform: {fileID: 0}
+  _patientZones:
+  - {x: -7.86, y: -6.43, z: 0}
+  - {x: 4.93, y: -2.74, z: 0}
+  - {x: 3.19, y: 0.29, z: 0}
+  - {x: -4.22, y: 0.83, z: 0}
+  - {x: -2.87, y: -11.03, z: 0}
+  _zoomScale: 4
+  _zoomSpeed: 2
+  _zoneIdToReach: 0
