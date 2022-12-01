@@ -83,8 +83,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.12135887
+        time: 0.019893646
+        value: 0.30582047
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -124,7 +124,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 90
+    numCapVertices: 0
     alignment: 0
     textureMode: 0
     shadowBias: 0.5

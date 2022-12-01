@@ -14,25 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsStory: 1
   Speeches:
-  - characterSprite: {fileID: 0}
+  - mouthSprite: {fileID: 0}
+    eyesSprite: {fileID: 0}
     characterName: 
     isPreviewOnLeft: 0
     characterText: Excellent ! Keep in mind that those pattern should be done in
       the order they appear. Top to bottom.
     characterSound: {fileID: 0}
-  - characterSprite: {fileID: 0}
+  - mouthSprite: {fileID: 0}
+    eyesSprite: {fileID: 0}
     characterName: 
     isPreviewOnLeft: 0
     characterText: 'Be careful: the rotation of the pattern matters!'
     characterSound: {fileID: 0}
-  - characterSprite: {fileID: 0}
+  - mouthSprite: {fileID: 0}
+    eyesSprite: {fileID: 0}
     characterName: 
     isPreviewOnLeft: 0
     characterText: And of course, do it as fast as you can to save them all!
     characterSound: {fileID: 0}
-  - characterSprite: {fileID: 0}
+  - mouthSprite: {fileID: 0}
+    eyesSprite: {fileID: 0}
     characterName: 
-    isPreviewOnLeft: 0
+    isPreviewOnLeft: 1
     characterText: 'You know that I''m not an intern right.. ? '
     characterSound: {fileID: 0}
   DialogueBackground: {fileID: 0}

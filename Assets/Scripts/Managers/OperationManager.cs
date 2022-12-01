@@ -151,7 +151,7 @@ public class OperationManager : MonoBehaviour
     public void OnModelValidated()
     {
         Debug.Log("Model validated !");
-        if (GameManager.Instance.IsOnBoarding)
+        if (GameManager.Instance.IsOnBoarding && _currentModelIndex == 1)
         {
             _tipsManager.DisplaySpecificTips(2);
         }

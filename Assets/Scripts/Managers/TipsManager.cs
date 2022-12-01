@@ -106,6 +106,8 @@ public class TipsManager : MonoBehaviour
         if (_remainingSpeech.Count <= 0)
         {
             IsTipsActive = false;
+            _leftDialogueBox.EnableBox(false, new Speech());
+            _rightDialogueBox.EnableBox(false, new Speech());
             // Should display them after
             return;
         }
