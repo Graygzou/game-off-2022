@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class OperationManager : MonoBehaviour
 {
-    [SerializeField] private Texture2D _needleCrosshair;
     [SerializeField] private SutureModel _sutureModel = null;
     [SerializeField] private SutureCanvas _operationCanvas = null;
     [SerializeField] private ZoomToWound _zoomManager = null;
@@ -64,8 +63,6 @@ public class OperationManager : MonoBehaviour
     void Start()
     {
         _finished = false;
-        Vector2 cursorOffset = new Vector2(_needleCrosshair.width / 2, _needleCrosshair.height / 2);
-        Cursor.SetCursor(_needleCrosshair, cursorOffset, CursorMode.Auto);
 
         if (_currentLevel == null)
         {

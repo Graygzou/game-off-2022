@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private Texture2D _needleCrosshair = null;
     [SerializeField] private SoundManager _soundManager = null;
     [SerializeField] private FadeManager _fadeManager = null;
 
@@ -42,7 +43,19 @@ public class GameManager : Singleton<GameManager>
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        InitCursor();
+
         _soundManager.StartBackgroundMusic(_currentContext);
+    }
+
+    public void InitCursor()
+    {
+        Vector2 hotSpot = new Vector2(0, _needleCrosshair.height);
+#if UNITY_WEBGL
+        Cursor.SetCursor(_needleCrosshair, hotSpot, CursorMode.ForceSoftware);
+#else
+        Cursor.SetCursor(_needleCrosshair, hotSpot, CursorMode.Auto);
+#endif
     }
 
     public void OnDestroy()
