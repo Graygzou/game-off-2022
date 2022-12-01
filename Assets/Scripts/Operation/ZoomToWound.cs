@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,20 @@ public class ZoomToWound : MonoBehaviour
     private bool _isMoving = false;
     private Vector3 _positionToReach = Vector3.zero;
     private Vector3 _scaleToReach = Vector3.zero;
+
+    private Action _onZoomDone = null;
+    public event Action OnZoomDone
+    {
+        add
+        {
+            _onZoomDone -= value;
+            _onZoomDone += value;
+        }
+        remove
+        {
+            _onZoomDone -= value;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -55,11 +70,13 @@ public class ZoomToWound : MonoBehaviour
 #endif // UNITY_EDITOR
     }
 
-    public void ZoomOut()
+    public bool ZoomOut()
     {
         _positionToReach = _startingPosition;
         _scaleToReach = _startingScale;
         _isMoving = _patientTransform.position != _positionToReach;
+
+        return _isMoving;
     }
 
     public void Update()
@@ -77,7 +94,8 @@ public class ZoomToWound : MonoBehaviour
 
         if (_isMoving)
         {
-            if (_patientTransform.position != _positionToReach)
+            if (_patientTransform.position.x - _positionToReach.x < Mathf.Epsilon &&
+                _patientTransform.position.y - _positionToReach.y < Mathf.Epsilon)
             {
                 float step = _zoomSpeed * Time.deltaTime; // calculate distance to move
                 _patientTransform.position = Vector3.LerpUnclamped(_patientTransform.position, _positionToReach, step);
@@ -85,9 +103,19 @@ public class ZoomToWound : MonoBehaviour
             }
             else
             {
+                _onZoomDone?.Invoke();
                 _isMoving = false;
             }
         }
     }
 
+    internal void MoveActivePatient()
+    {
+        _patientTransform.transform.Translate(Vector3.left);
+    }
+
+    internal void MoveInactivePatient()
+    {
+        _patientTransform.transform.Translate(Vector3.right);
+    }
 }

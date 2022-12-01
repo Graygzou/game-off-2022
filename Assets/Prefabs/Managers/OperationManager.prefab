@@ -49,7 +49,9 @@ MonoBehaviour:
   _needleCrosshair: {fileID: 2800000, guid: 0ba2e80f4b766304a8f750f40c0d34eb, type: 3}
   _sutureModel: {fileID: 0}
   _operationCanvas: {fileID: 579620478}
+  _zoomManager: {fileID: 4492655425298366623}
   _time: {fileID: 0}
+  _newOperationText: {fileID: 0}
   _currentLevel: {fileID: 11400000, guid: dc69e2942f2249a469fd6943951bee8d, type: 2}
 --- !u!114 &579620478
 MonoBehaviour:
@@ -80,11 +82,11 @@ MonoBehaviour:
   _patientTransform: {fileID: 0}
   _patientModelTransform: {fileID: 0}
   _patientZones:
-  - {x: -7.86, y: -6.43, z: 0}
-  - {x: 4.93, y: -2.74, z: 0}
-  - {x: 3.19, y: 0.29, z: 0}
-  - {x: -4.22, y: 0.83, z: 0}
-  - {x: -2.87, y: -11.03, z: 0}
-  _zoomScale: 4
+  - {x: -7.86, y: -6.43, z: 7}
+  - {x: 4.93, y: -2.74, z: 7}
+  - {x: 3.19, y: 0.29, z: 7}
+  - {x: -4.22, y: 0.83, z: 7}
+  - {x: -2.87, y: -11.03, z: 7}
+  _zoomScale: 3
   _zoomSpeed: 2
   _zoneIdToReach: 0

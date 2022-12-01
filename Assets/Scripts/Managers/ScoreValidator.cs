@@ -45,9 +45,7 @@ public class ScoreValidator
 
     public ScoreValidator(Mesh modelMesh, float simplificationUsed, float maxScoreTolerance)
     {
-        this._modelMesh = modelMesh;
-        this._simplificationUsed = simplificationUsed;
-        this._maxScoreTolerance = maxScoreTolerance;
+        UpdateModel(modelMesh, simplificationUsed, maxScoreTolerance);
     }
 
     public void ResetScore()
@@ -60,11 +58,11 @@ public class ScoreValidator
     // Update is called once per frame
     public void ComputeScore(LineRenderer currentSuture)
     {
-        if (_scoreComputed)
-        {
-            // Score already computed
-            return;
-        }
+        //if (_scoreComputed)
+        //{
+        //    Debug.LogError("Score already computed");
+        //    return;
+        //}
 
         // simplified it
         currentSuture.Simplify(_simplificationUsed);
@@ -99,6 +97,13 @@ public class ScoreValidator
         return _cumulatedScore;
     }
 
+    public void UpdateModel(Mesh mesh, float meshSimplification, float scoreTolerance)
+    {
+        this._modelMesh = mesh;
+        this._simplificationUsed = meshSimplification;
+        this._maxScoreTolerance = scoreTolerance;
+    }
+
 
     // This one is the best one with the right simplification
     public void ScoreWithMesh(LineRenderer currentSuture, Mesh mesh)
@@ -120,6 +125,7 @@ public class ScoreValidator
         }
 
         Debug.Log("Mesh Score is " + _scoreMesh);
+        _scoreComputed = false;
         if (_scoreMesh <= _maxScoreTolerance)
         {
             _onModelValidated?.Invoke();
@@ -128,5 +134,6 @@ public class ScoreValidator
         {
             _onModelRejected?.Invoke();
         }
+
     }
 }

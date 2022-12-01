@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,14 @@ public class OperationManager : MonoBehaviour
     [SerializeField] private Texture2D _needleCrosshair;
     [SerializeField] private SutureModel _sutureModel = null;
     [SerializeField] private SutureCanvas _operationCanvas = null;
+    [SerializeField] private ZoomToWound _zoomManager = null;
     [SerializeField] private Slider _time = null;
+    [SerializeField] private GameObject _newOperationText = null;
+    
 
     [SerializeField] private LevelData _currentLevel = null;
-    private int _currentOperationIndex = 0;
+    private int _currentOperationIndex = -1;
+    private int _currentModelIndex = 0;
 
     private ScoreValidator _scoreValidator;
     private bool _started = false;
@@ -53,7 +58,7 @@ public class OperationManager : MonoBehaviour
         _started = false;
         _finished = true;
         //_currentLevel = null;
-        _currentOperationIndex = 0;
+        _currentOperationIndex = -1;
     }
 
     void Start()
@@ -66,31 +71,52 @@ public class OperationManager : MonoBehaviour
             _currentLevel = GameManager.Instance.GetCurrentLevel();
         }
         
-        _currentOperationIndex = 0;
-        StartOperation(_currentLevel.operationSequences[_currentOperationIndex]);
-
-        _started = true;
+        MoveToNextOperation();
     }
 
 
-    public void StartOperation(ModelData level)
+    public void StartOperation(OperationData level)
     {
         _levelSpeed = level.lifeReducingSpeed;
         _mistakeDamage = level.mistakeDamage;
 
         // Update UI
-        _sutureModel.ChangeMesh(level.meshModel);
+        _sutureModel.ChangeMeshes(level);
 
-        // Validator
-        SetupValidator(level.meshModel, level.simplificationUsed, level.maxScoreTolerance);
+        // Set validator for first mesh
+        _currentModelIndex = 0;
+        ModelData model = _currentLevel.operationSequences[_currentOperationIndex].allModels[_currentModelIndex];
+        SetupValidator(model);
+        _currentModelIndex++;
     }
 
-    public void SetupValidator(Mesh model, float meshSimplification, float scoreTolerance)
+    public void OnDestroy()
     {
-        _scoreValidator = new ScoreValidator(model, meshSimplification, scoreTolerance);
-        _scoreValidator.OnModelValidated += OnModelValided;
+        _scoreValidator.OnModelValidated -= OnModelValidated;
+        _scoreValidator.OnModelValidated -= _sutureModel.MarkModelCompleted;
+        _scoreValidator.OnModelRejected -= OnModelRejected;
+    }
+
+    public void SetupValidator(ModelData model)
+    {
+        Mesh mesh = model.meshModel;
+        float meshSimplification = model.simplificationUsed;
+        float scoreTolerance = model.maxScoreTolerance;
+
+        _scoreValidator = new ScoreValidator(mesh, meshSimplification, scoreTolerance);
+        _scoreValidator.OnModelValidated += OnModelValidated;
+        _scoreValidator.OnModelValidated += _sutureModel.MarkModelCompleted;
         _scoreValidator.OnModelRejected += OnModelRejected;
         _operationCanvas.Initialize(_scoreValidator);
+    }
+
+    public void UpdateValidator(ModelData model)
+    {
+        Mesh mesh = model.meshModel;
+        float meshSimplification = model.simplificationUsed;
+        float scoreTolerance = model.maxScoreTolerance;
+
+        _scoreValidator.UpdateModel(mesh, meshSimplification, scoreTolerance);
     }
 
     // Update is called once per frame
@@ -110,18 +136,79 @@ public class OperationManager : MonoBehaviour
         }
     }
 
-    public void OnModelValided()
+    public void OnModelValidated()
     {
-        if (_currentOperationIndex + 1 >= _currentLevel.operationSequences.Count)
+        Debug.Log("Model validated !");
+
+        int totalModelCount = _currentLevel.operationSequences[_currentOperationIndex].allModels.Count;
+        if (_currentModelIndex < totalModelCount)
         {
-            Debug.Log("Level finished !");
-            _onLevelFinished?.Invoke(_scoreValidator.GetCumulatedScore());
+            Debug.Log("Yeah next model !");
+            MoveToNextModel();
             return;
         }
 
-        Debug.Log("Yeah next one !");
+        if (_currentOperationIndex + 1 < _currentLevel.operationSequences.Count)
+        {
+            Debug.Log("Yeah next operation !");
+            MoveToNextOperation();
+            return;
+        }
+
+        Debug.Log("Level finished !");
+        _onLevelFinished?.Invoke(_scoreValidator.GetCumulatedScore());
+    }
+
+    public void MoveToNextOperation()
+    {
         _currentOperationIndex++;
+
+        StartCoroutine(OperationTeaser());
+    }
+
+    public IEnumerator OperationTeaser()
+    {
+        _newOperationText.SetActive(true);
+        yield return new WaitForSeconds(3);
+        _newOperationText.SetActive(false);
+
+        // First zoom out if required
+        _zoomManager.OnZoomDone += ZoomInToDoOperation;
+        if (_zoomManager.ZoomOut() == false)
+        {
+            // Call it right away
+            ZoomInToDoOperation();
+        }
+    }
+
+    public void ZoomInToDoOperation()
+    {
+        _zoomManager.OnZoomDone -= ZoomInToDoOperation;
+
+        // Then zoom in
+        OperationData data = _currentLevel.operationSequences[_currentOperationIndex];
+        _zoomManager.OnZoomDone += PrepareOperation;
+        _zoomManager.ZoomIn(data.zone);
+    }
+
+    public void PrepareOperation()
+    {
+        _zoomManager.OnZoomDone -= PrepareOperation;
+
+        // Display wounds here
+
+        // Start the reel operation now !
         StartOperation(_currentLevel.operationSequences[_currentOperationIndex]);
+
+        // In case it's not done yet.
+        _started = true;
+    }
+
+    public void MoveToNextModel()
+    {
+        ModelData model = _currentLevel.operationSequences[_currentOperationIndex].allModels[_currentModelIndex];
+        UpdateValidator(model);
+        _currentModelIndex++;
     }
 
     public void OnModelRejected()

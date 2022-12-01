@@ -21,12 +21,17 @@ public class SutureCanvas : MonoBehaviour
         _scoreValidator.OnModelRejected += EraseSuture;
     }
 
+    public void OnDestroy()
+    {
+        _scoreValidator.OnModelValidated -= EraseSuture;
+        _scoreValidator.OnModelRejected -= EraseSuture;
+    }
+
     // Update is called once per frame
     public void Update()
     {
         if (!_isInitialized)
         {
-            Debug.LogError("Not initialized !");
             return;
         }
 
@@ -34,7 +39,6 @@ public class SutureCanvas : MonoBehaviour
         {
             if (_currentSuture != null)
             {
-                _scoreValidator.ResetScore();
                 EraseSuture();
             }
             
@@ -47,9 +51,10 @@ public class SutureCanvas : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            Debug.Log(_currentSuture != null);
             if (_currentSuture != null)
             {
-                //_scoreValidator.ComputeScore(_currentSuture);
+                _scoreValidator.ComputeScore(_currentSuture);
             }
         }
     }
@@ -75,6 +80,7 @@ public class SutureCanvas : MonoBehaviour
 
     private void EraseSuture()
     {
+        _scoreValidator.ResetScore();
         Destroy(_currentSuture.gameObject);
         _currentSuture = null;
         pointCount = 0;
