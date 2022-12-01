@@ -160,6 +160,12 @@ public class GameManager : Singleton<GameManager>
         SwitchToContext(GameContext.Congrats);
     }
 
+    // UI specific
+    public void ShowCredits()
+    {
+        SwitchToContext(GameContext.Credits);
+    }
+
     public void OnLevelFinished(int cumulatedScore)
     {
         SwitchToContext(GameContext.Story);
