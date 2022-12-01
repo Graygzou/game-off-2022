@@ -16,10 +16,24 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialogueData[] _stories = null;
     [SerializeField] private DialogueData[] _tips = null;
 
-    private int _currentActiveStory = 0;
+    private int _currentActiveStoryIndex = 0;
     private int _currentActiveTips = 0;
     private DialogueData _currentData = null;
     private List<Speech> _remainingSpeech = null;
+
+    private Action _onNoStoriesLeft = null;
+    public event Action OnNoStoriesLeft
+    {
+        add
+        {
+            _onNoStoriesLeft -= value;
+            _onNoStoriesLeft += value;
+        }
+        remove
+        {
+            _onNoStoriesLeft -= value;
+        }
+    }
 
     private Action _onStoryEnded = null;
     public event Action OnStoryEnded
@@ -46,7 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-        _currentActiveStory += _currentData.IsStory ? 1 : 0;
+        _currentActiveStoryIndex += _currentData.IsStory ? 1 : 0;
         _currentActiveTips += _currentData.IsStory ? 0 : 1;
     }
 
@@ -56,24 +70,26 @@ public class DialogueManager : MonoBehaviour
 
     public void SkipDialogue()
     {
-        _currentActiveStory++;
+        // TODO ?
     }
 
-    public void DisplayNextDialogue()
+    public void DisplayNextDialogue(int storyIndex)
     {
-        if (_currentActiveStory >= _stories.Length)
+        if (storyIndex >= _stories.Length)
         {
-            Debug.LogError("No more stories to tell !");
+            Debug.Log("No more stories to tell !");
+            _onNoStoriesLeft?.Invoke();
             return;
         }
 
-        _currentData = _stories[_currentActiveStory];
+        _currentData = _stories[storyIndex];
         if (_currentData.Speeches.Count <= 0)
         {
             Debug.LogError("No speech in this dialog !");
             return;
         }
 
+        _currentActiveStoryIndex = storyIndex;
         _remainingSpeech = new List<Speech>(_currentData.Speeches.Count);
         OpenDialogueBox();
     }

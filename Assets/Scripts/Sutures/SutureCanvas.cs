@@ -17,6 +17,8 @@ public class SutureCanvas : MonoBehaviour
     {
         _isInitialized = true;
         _scoreValidator = scoreValidator;
+        _scoreValidator.OnModelValidated += EraseSuture;
+        _scoreValidator.OnModelRejected += EraseSuture;
     }
 
     // Update is called once per frame
@@ -43,22 +45,12 @@ public class SutureCanvas : MonoBehaviour
             // Nothing ?
             Suture();
         }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            EraseSuture();
-        }
-        else
+        else if (Input.GetMouseButtonUp(0))
         {
             if (_currentSuture != null)
             {
                 _scoreValidator.ComputeScore(_currentSuture);
             }
-                
-
-            //if (_currentSuture != null)
-            //{
-            //    EraseSuture();
-            //}
         }
     }
 

@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/RuntimeScenes/OperatingRoom.unity
     guid: 14e64d100aa5bfd42aba1cb63d470695
   - enabled: 1
-    path: Assets/Scenes/RuntimeScenes/GameOverScene.unity
+    path: Assets/Scenes/RuntimeScenes/GameOver.unity
+    guid: ad092b0c7b23a8649bb2e019679afc4e
+  - enabled: 1
+    path: Assets/Scenes/RuntimeScenes/Congrats.unity
     guid: 15857bb8941f7e54b98ad14e234fe3ed
   m_configObjects: {}

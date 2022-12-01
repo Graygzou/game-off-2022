@@ -50,6 +50,8 @@ public class OperationManager : MonoBehaviour
         _currentLevel = GameManager.Instance.GetCurrentLevel();
         _currentOperationIndex = 0;
         StartOperation(_currentLevel.operationSequences[_currentOperationIndex]);
+
+        _started = true;
     }
 
 
@@ -63,8 +65,6 @@ public class OperationManager : MonoBehaviour
 
         // Validator
         SetupValidator(level.meshModel, level.simplificationUsed, level.maxScoreTolerance);
-        
-        _started = true;
     }
 
     public void SetupValidator(Mesh model, float meshSimplification, float scoreTolerance)
@@ -94,7 +94,7 @@ public class OperationManager : MonoBehaviour
 
     public void OnModelValided()
     {
-        if (_currentOperationIndex >= _currentLevel.operationSequences.Count)
+        if (_currentOperationIndex + 1 >= _currentLevel.operationSequences.Count)
         {
             Debug.Log("Level finished !");
             _onLevelFinished?.Invoke(_scoreValidator.GetCumulatedScore());

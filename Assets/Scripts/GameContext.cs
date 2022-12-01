@@ -9,5 +9,6 @@ public enum GameContext : int
     Credits = 1,
     Story = 2,
     Operation = 3,
-    GameOver = 4
+    GameOver = 4,
+    Congrats = 5
 }
